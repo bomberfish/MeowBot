@@ -3,9 +3,8 @@ const { REST } = require('@discordjs/rest');
 const { clientId, guildId, token } = require('./auth.json');
 const os = require('os');
 const fs = require("fs");
-const meows = Array("meowww <:pleading_cat:1093607301941829652>", "meow", "# MEOWWWW", "meow :3", "miau", "meeow", "meowwwwwwwww")
-const mewos = Array("mewooo <:pleading_cat:1093607301941829652>", "mewo", "# MEWOOOO", "mewo :3", "miua", "meewo", "mewooooooooo")
 
+const meows = ["meow", "mrrp", "mrow", "nya :3"];
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent] });
@@ -25,7 +24,6 @@ console.log(`Logged in!`)
 
 const commands = [
     new SlashCommandBuilder().setName('meow').setDescription('🐱'),
-    new SlashCommandBuilder().setName('mewo').setDescription('🐱'),
     new SlashCommandBuilder().setName('server').setDescription('Details of current server'),
     new SlashCommandBuilder().setName('status').setDescription('Bot status'),
     new SlashCommandBuilder().setName('info').setDescription('Bot info'),
@@ -40,23 +38,20 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 
 client.on('messageCreate', async message => {
     if (message.author.bot) return;
-    if (message.content.toLowerCase().includes("meow") || message.content.toLowerCase().includes("<:pleading_cat:1093607301941829652>")) {
+    if (message.content.toLowerCase().test(/((m((e|r)(ow|rp)))|nya|:pleading_cat:)/)) {
         message.react("<:pleading_cat:1093607301941829652>");
     }
 })
 
 client.on('interactionCreate', async interaction => {
-  console.log("Received a command!")
     if (!interaction.isChatInputCommand()) return;
 
     const { commandName } = interaction;
 
     switch (commandName) {
+        case 'mewo':
         case 'meow':
             await interaction.reply(meows[Math.floor(Math.random() * meows.length)]);
-            break;
-        case 'mewo':
-            await interaction.reply(mewos[Math.floor(Math.random() * mewos.length)]);
             break;
         case 'server':
             await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt}\nID: ${interaction.guild.id}`);
