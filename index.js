@@ -38,7 +38,7 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
 
 client.on('messageCreate', async message => {
     if (message.author.bot) return;
-    if (message.content.toLowerCase().test(/((m((e|r)(ow|rp)))|nya|:pleading_cat:)/)) {
+    if (/((m((e|r)(ow|rp)))|nya|:pleading_cat:)/.test(message.content.toLowerCase())) {
         message.react("<:pleading_cat:1093607301941829652>");
     }
 })
