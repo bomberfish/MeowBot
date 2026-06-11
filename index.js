@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, Routes, Client, MessageAttachment, GatewayIntentBits, ActivityType} = require('discord.js');
+const { SlashCommandBuilder, Routes, Client, MessageAttachment, GatewayIntentBits, ActivityType } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { clientId, guildId, token } = require('./auth.json');
 const os = require('os');
@@ -7,13 +7,13 @@ const fs = require("fs");
 const meows = ["meow", "mrrp", "mrow", "nya :3"];
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent] });
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
     console.log('Bot ready!');
     client.user.setPresence({
-	    activities: [{ name: `with a laser pointer`, type: ActivityType.Streaming }],
+        activities: [{ name: `with a laser pointer`, type: ActivityType.Streaming }],
         status: 'online',
     });
 });
@@ -67,7 +67,7 @@ client.on('interactionCreate', async interaction => {
 
 client.once('reconnecting', () => {
     console.log('Reconnecting...');
- });
- client.once('disconnect', () => {
+});
+client.once('disconnect', () => {
     console.log('Disconnected!');
- });
+});
